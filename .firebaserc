@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mujtabatodoapp": {
+      "hosting": {
+        "assessment": [
+          "mujtabatodoapp"
+        ]
+      }
+    }
+  }
+}
