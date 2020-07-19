@@ -1,0 +1,22 @@
+.todo-card {
+  width: 100%;
+  background-color: #fff475;
+}
+.todo-card-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.task-checkbox {
+  padding: 10px;
+}
+
+.todo-card-delete-button{
+  float: right;
+}
+mat-card-header {
+  width: 100%;
+}
+.clear-task-icon {
+  font-size: 14px;
+}

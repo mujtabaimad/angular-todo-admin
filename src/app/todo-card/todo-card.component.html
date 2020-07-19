@@ -1,0 +1,28 @@
+<mat-card class="todo-card">
+  <mat-card-header>
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+      <div>{{todo.title}}</div>
+      <button color="link" mat-icon-button class="todo-card-delete-button" (click)="toggleEdit()"><mat-icon>edit</mat-icon></button>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-progress-bar mode="determinate" [value]="completed"></mat-progress-bar>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content fxLayout="column" class="todo-card-content">
+    <mat-checkbox class="task-checkbox" [disabled]="!editable" fxFlex="100%" *ngFor="let task of todo.tasks" [checked]="task.finished" [(ngModel)]="task.finished" (change)="onTaskChange()">
+      <div fxLayout fxLayoutAlign="space-between center">
+        <div>{{task.text}}</div>
+        <button *ngIf="editable" mat-icon-button (click)="deleteTask(task)">
+          <mat-icon class="clear-task-icon">clear</mat-icon>
+        </button>
+      </div>
+    </mat-checkbox>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <div>user: {{todo.userId}}</div>
+    <div>
+      <button color="warn" mat-icon-button class="todo-card-delete-button" (click)="onTodoDelete()"><mat-icon>delete</mat-icon></button>
+    </div>
+
+  </mat-card-actions>
+</mat-card>
