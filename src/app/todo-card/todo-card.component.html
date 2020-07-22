@@ -9,7 +9,7 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content fxLayout="column" class="todo-card-content">
-    <mat-checkbox class="task-checkbox" [disabled]="!editable" fxFlex="100%" *ngFor="let task of todo.tasks" [checked]="task.finished" [(ngModel)]="task.finished" (change)="onTaskChange()">
+    <mat-checkbox class="task-checkbox" [disabled]="!editable" fxFlex="100%" *ngFor="let task of todo.tasks" [checked]="task.finished"  (change)="onTaskChange(task)">
       <div fxLayout fxLayoutAlign="space-between center">
         <div>{{task.text}}</div>
         <button *ngIf="editable" mat-icon-button (click)="deleteTask(task)">
@@ -19,7 +19,7 @@
     </mat-checkbox>
   </mat-card-content>
   <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-    <div>user: {{todo.userId}}</div>
+    <div>user: {{todo.user.email}}</div>
     <div>
       <button color="warn" mat-icon-button class="todo-card-delete-button" (click)="onTodoDelete()"><mat-icon>delete</mat-icon></button>
     </div>

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {getfilteredTodosList, getTodosList, State} from './app.reducer';
+import {State} from './app.reducer';
 import {AppService} from './app.service';
-import {Todo} from './todo.model';
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,24 +11,14 @@ import {Todo} from './todo.model';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private store: Store<State>, private appService: AppService) {
+  constructor(private store: Store<State>, private appService: AppService, private authService: AuthService) {
   }
 
-  allTodos: Todo[];
-
-  onSearch(event): void {
-    this.appService.filterTodos(event.target.value);
-    this.allTodos = this.allTodos.filter((todo) => todo.title.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase()));
-  }
-
-  onDelete(todoId): void {
-    this.allTodos = this.allTodos.filter((todo) => todo.id !== todoId);
+  logout(): void {
+    this.authService.logout();
   }
 
   ngOnInit(): void {
-    this.appService.fetchTodos();
-    this.store.select(getfilteredTodosList).subscribe((todos) => {
-      this.allTodos = todos;
-    });
+    this.authService.initAuthListener();
   }
 }

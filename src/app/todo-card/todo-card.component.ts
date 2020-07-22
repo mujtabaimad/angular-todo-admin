@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Todo} from '../todo.model';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-todo-card',
@@ -8,7 +9,7 @@ import {Todo} from '../todo.model';
 })
 export class TodoCardComponent implements OnInit {
   @Input() todo: Todo;
-  @Output() deleteTodo = new EventEmitter<number>();
+  @Output() deleteTodo = new EventEmitter<string>();
 
   completed: number;
   editable = false;
@@ -17,7 +18,15 @@ export class TodoCardComponent implements OnInit {
     this.deleteTodo.emit(this.todo.id);
   }
 
-  onTaskChange(): void {
+  onTaskChange(changedTask): void {
+
+    const tasks = this.todo.tasks.map((task) => {
+      if (task === changedTask) {
+        return {text: task.text, finished: !task.finished};
+      }
+      return task;
+    });
+    this.appService.updateTask(this.todo, tasks);
     this.calculateCompilation();
   }
 
@@ -28,15 +37,17 @@ export class TodoCardComponent implements OnInit {
   }
 
   deleteTask(selectedTask): void {
-    this.todo.tasks = this.todo.tasks.filter((task) => task !== selectedTask);
+    const tasks = this.todo.tasks.filter((task) => task !== selectedTask);
+    this.appService.updateTask(this.todo, tasks);
     this.calculateCompilation();
   }
 
-  constructor() {
+  constructor(private appService: AppService) {
   }
 
   toggleEdit(): void {
     this.editable = !this.editable;
+    this.appService.updateTodo(this.todo);
   }
 
   ngOnInit(): void {
