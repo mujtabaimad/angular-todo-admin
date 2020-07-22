@@ -11,25 +11,34 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {MaterialModule} from './modules/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {TodoCardComponent} from './todo-card/todo-card.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppService} from './app.service';
+import {authReducer} from './auth.reducer';
+import {AuthService} from './auth.service';
+import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoCardComponent
+    TodoCardComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({appTodos: appReducer}),
+    StoreModule.forRoot({appTodos: appReducer, appAuth: authReducer}),
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
-  providers: [AppService],
+  providers: [AppService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
