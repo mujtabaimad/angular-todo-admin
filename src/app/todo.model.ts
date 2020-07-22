@@ -1,8 +1,13 @@
 export interface Todo {
-  id: number;
+  id: string;
   title: string;
-  userId: string;
+  user: User;
   tasks: Task[];
+}
+
+export interface User {
+  id: string;
+  email: string;
 }
 
 export interface Task {
